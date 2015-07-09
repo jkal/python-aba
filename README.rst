@@ -6,8 +6,9 @@ used by Australian banks for bulk payments.
 
 Usage
 -----
-
 See example below.
+
+.. code:: python
 
     import datetime
     from aba.generator import AbaFile

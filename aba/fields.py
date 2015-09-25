@@ -129,7 +129,7 @@ class AccountNumber(Field):
 
 class TxnCode(Field):
     length = 2
-    valid_values = ('50', '53')
+    valid_values = ('13', '50', '51', '52', '53', '54', '55', '56', '57')
 
     def __init__(self, number):
         self.value = number

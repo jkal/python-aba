@@ -23,7 +23,7 @@ class AbaFile(object):
         output = self.header.render_to_string() + line_ending
 
         for record in self.records:
-            if int(record.fields[4].value) == 53:
+            if int(record.fields[4].value) in (50, 53):
                 self.total_credit += int(record.fields[5].value)
             if int(record.fields[4].value) == 13:
                 self.total_debit += int(record.fields[5].value)

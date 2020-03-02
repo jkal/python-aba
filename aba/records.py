@@ -8,8 +8,7 @@ An ABA (or Direct Entry) file contains 3 types of records:
 """
 from __future__ import absolute_import
 
-from aba import exceptions
-from aba import fields
+from aba import exceptions, fields
 
 
 class Record(object):
@@ -50,12 +49,12 @@ class DescriptiveRecord(Record):
 class DetailRecord(Record):
 
     def __init__(self, bsb, account_number, txn_code, amount, payee_name, lodgment_ref,
-                 sender_bsb, sender_account, remitter_name, tax_amount=0):
+                 sender_bsb, sender_account, remitter_name, indicator=' ', tax_amount=0):
         self.fields = [
             fields.RecordType(1),
             fields.BSB(bsb),
             fields.AccountNumber(account_number),
-            fields.Blank(1),
+            fields.Indicator(indicator),
             fields.TxnCode(txn_code),
             fields.Amount(amount),
             fields.PayeeName(payee_name),
@@ -66,12 +65,13 @@ class DetailRecord(Record):
             fields.TaxAmount(tax_amount)
         ]
 
+
 class TotalRecord(Record):
 
-   def __init__(self, total_credit, total_debit, count):
-       total_net = abs(total_credit - total_debit)
+    def __init__(self, total_credit, total_debit, count):
+        total_net = abs(total_credit - total_debit)
 
-       self.fields = [
+        self.fields = [
            fields.RecordType(7),
            fields.BSB('999-999'),
            fields.Blank(12),
@@ -81,4 +81,4 @@ class TotalRecord(Record):
            fields.Blank(24),
            fields.TotalCount(count),
            fields.Blank(40)
-       ]
+        ]

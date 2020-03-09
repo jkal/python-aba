@@ -127,6 +127,18 @@ class AccountNumber(Field):
         self.value = number.rjust(self.length, ' ')
 
 
+class Indicator(Field):
+    """
+    Indicator associated with the TaxAmount field. Where withholding tax has
+    been deducted the appropriate Indicator is to be used
+    """
+    length = 1
+    valid_values = (' ', 'N', 'W', 'X', 'Y')
+
+    def __init__(self, tax_indicator):
+        self.value = tax_indicator
+
+
 class TxnCode(Field):
     length = 2
     valid_values = ('13', '50', '51', '52', '53', '54', '55', '56', '57')
@@ -176,4 +188,3 @@ class Total(Field):
 
 class TotalCount(Total):
     length = 6
-
